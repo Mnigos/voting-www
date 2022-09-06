@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from './lib/Button.svelte'
+  import ConnectWalletButton from './lib/ConnectWalletButton.svelte'
   import Footer from './lib/Footer.svelte'
 </script>
 
@@ -13,7 +13,7 @@
       <p>Connect your metamask wallet to get involved into voting</p>
     </header>
 
-    <Button>Connect wallet</Button>
+    <ConnectWalletButton />
   </div>
 
   <div class="self-end">
