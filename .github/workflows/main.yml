@@ -8,64 +8,90 @@ on:
 
   workflow_dispatch:
 
-  jobs:
-    build:
-      name: 'Build 🧱'
-      runs-on: ubuntu-latest
-      strategy:
-        fail-fast: false
-        matrix:
-          pnpm:
-            - 4.11.1
-          os:
+jobs:
+  build:
+    name: 'Build 🧱'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pnpm:
+          - 4.11.1
+        os:
+        - ubuntu-latest
+
+    steps:
+      - uses: pnpm/action-setup@v2.2.2
+          with:
+            version: 6.0.2
+
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v3.1.1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies 👨🏻‍💻
+        run: pnpm install
+
+      - name: Build Application 🧱
+        run: yarn build
+
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pnpm:
+          - 4.11.1
+        os:
           - ubuntu-latest
 
-      steps:
-        - name: Checkout 🛎
-          uses: actions/checkout@master
+    steps:
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 6.0.2
 
-        - name: Setup node env 🏗
-          uses: actions/setup-node@v3.1.1
-          with:
-            node-version: ${{ matrix.node }}
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
-        - name: Install dependencies 👨🏻‍💻
-          run: pnpm install
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
-        - name: Build Application 🧱
-          run: yarn build
+     - name: Format 📐
+       run: pnpm format
 
-    lint:
-      runs-on: ubuntu-latest
-      strategy:
-        fail-fast: false
-        matrix:
-          pnpm:
-            - 4.11.1
-          os:
-            - ubuntu-latest
+     - name: Lint 🐱
+       run: yarn lint:js
 
-      steps:
-       - name: Format 📐
-         run: pnpm format
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pnpm:
+          - 4.11.1
+        os:
+          - ubuntu-latest
 
-       - name: Lint 🐱
-         run: yarn lint:js
+    steps:
+     - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 6.0.2
 
-    test:
-      strategy:
-        fail-fast: false
-        matrix:
-          pnpm:
-            - 4.11.1
-          os:
-            - ubuntu-latest
+     - name: Run tests 🧪
+       run: npm test
 
-      steps:
-       - name: Run tests 🧪
-         run: npm test
-
-       - name: Collect coverage
-         uses: codecov/codecov-action@v3
-         with:
-           token: ${{ secrets.CODECOV_TOKEN }}
+     - name: Collect coverage
+       uses: codecov/codecov-action@v3
+       with:
+         token: ${{ secrets.CODECOV_TOKEN }}
