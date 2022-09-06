@@ -22,8 +22,8 @@ jobs:
 
     steps:
       - uses: pnpm/action-setup@v2.2.2
-          with:
-            version: 6.0.2
+        with:
+          version: 6.0.2
 
       - name: Checkout 🛎
         uses: actions/checkout@master
@@ -33,6 +33,19 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies 👨🏻‍💻
         run: pnpm install
 
@@ -40,6 +53,7 @@ jobs:
         run: yarn build
 
   lint:
+    name: 'Lint 🐱'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -54,26 +68,14 @@ jobs:
         with:
           version: 6.0.2
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+      - name: Format 📐
+        run: pnpm format
 
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-     - name: Format 📐
-       run: pnpm format
-
-     - name: Lint 🐱
-       run: yarn lint:js
+      - name: Lint 🐱
+        run: yarn lint:js
 
   test:
+    name: 'Test 🧪'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -85,7 +87,7 @@ jobs:
 
     steps:
      - uses: pnpm/action-setup@v2.2.2
-        with:
+       with:
           version: 6.0.2
 
      - name: Run tests 🧪
