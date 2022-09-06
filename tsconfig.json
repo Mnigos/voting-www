@@ -14,7 +14,10 @@
      */
     "allowJs": true,
     "checkJs": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "types": ["node", "vite/client", "vitest/globals"],
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
