@@ -45,6 +45,18 @@ module.exports = {
     {
       files: ['**/*.svelte'],
       processor: 'svelte3/svelte3',
+      rules: {
+        'unicorn/filename-case': ['error', { case: 'pascalCase' }],
+      },
+    },
+    {
+      files: ['**/*.spec.ts'],
+      rules: {
+        'unicorn/filename-case': [
+          'error',
+          { cases: { pascalCase: true, kebabCase: true } },
+        ],
+      },
     },
   ],
   ignorePatterns: ['README.md'],
