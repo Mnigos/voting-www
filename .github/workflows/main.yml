@@ -141,7 +141,7 @@ jobs:
         run: pnpm install
 
       - name: Run tests 🧪
-        run: npm test
+        run: pnpm test:coverage
 
       - name: Collect coverage
         uses: codecov/codecov-action@v3
