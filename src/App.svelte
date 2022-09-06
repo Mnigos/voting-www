@@ -1,30 +1,19 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import Counter from './lib/Counter.svelte'
+  import Button from './lib/Button.svelte'
 </script>
 
-<main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+<main
+  class="bg-dark-800 min-h-screen text-white flex flex-col items-center justify-center"
+>
+  <header class="text-center p-4">
+    <h1 class="text-5xl p-2">Voting App</h1>
+
+    <p>Connect your metamask wallet to get involved into voting</p>
+  </header>
 
   <div class="card text-gray-500">
-    <Counter />
+    <Button>Connect wallet</Button>
   </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank"
-      >SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
 </main>
 
 <style windi:preflights:global windi:safelist:global></style>
