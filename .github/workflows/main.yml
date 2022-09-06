@@ -1,72 +1,65 @@
 name: CI
 
- # Controls when the action will run.
- on:
-   # Triggers the workflow on push or pull request events but only for the main branch
-   push:
-     branches: [main]
-   pull_request:
-     branches: [main]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
-   # Allows you to run this workflow manually from the Actions tab
-   workflow_dispatch:
+  workflow_dispatch:
 
- # A workflow run is made up of one or more jobs that can run sequentially or in parallel
- jobs:
-   # This workflow contains a single job called "build"
-   build:
-     # The type of runner that the job will run on
-     runs-on: ubuntu-latest
-
-    strategy:
-    fail-fast: false
-    matrix:
-      pnpm:
-        - 4.11.1
-      os:
-        - ubuntu-latest
-
-     steps:
-       - name: Checkout 🛎
-         uses: actions/checkout@master
-
-       - name: Setup node env 🏗
-         uses: actions/setup-node@v3.1.1
-         with:
-           node-version: ${{ matrix.node }}
-
-       - name: Install dependencies 👨🏻‍💻
-         run: pnpm install
-
-       - name: Build Application 🧱
-        run: yarn build
-
-       runs-on: ubuntu-latest
-
-    lint:
+  jobs:
+    build:
+      name: 'Build 🧱'
+      runs-on: ubuntu-latest
       strategy:
-      fail-fast: false
-      matrix:
-        pnpm:
-          - 4.11.1
-        os:
+        fail-fast: false
+        matrix:
+          pnpm:
+            - 4.11.1
+          os:
           - ubuntu-latest
 
       steps:
+        - name: Checkout 🛎
+          uses: actions/checkout@master
+
+        - name: Setup node env 🏗
+          uses: actions/setup-node@v3.1.1
+          with:
+            node-version: ${{ matrix.node }}
+
+        - name: Install dependencies 👨🏻‍💻
+          run: pnpm install
+
+        - name: Build Application 🧱
+          run: yarn build
+
+    lint:
+      runs-on: ubuntu-latest
+      strategy:
+        fail-fast: false
+        matrix:
+          pnpm:
+            - 4.11.1
+          os:
+            - ubuntu-latest
+
+      steps:
        - name: Format 📐
-          run: pnpm format
+         run: pnpm format
 
        - name: Lint 🐱
          run: yarn lint:js
 
     test:
       strategy:
-      fail-fast: false
-      matrix:
-        pnpm:
-          - 4.11.1
-        os:
-          - ubuntu-latest
+        fail-fast: false
+        matrix:
+          pnpm:
+            - 4.11.1
+          os:
+            - ubuntu-latest
 
       steps:
        - name: Run tests 🧪
