@@ -18,7 +18,7 @@ jobs:
         pnpm:
           - 4.11.1
         os:
-        - ubuntu-latest
+          - ubuntu-latest
 
     steps:
       - uses: pnpm/action-setup@v2.2.2
@@ -50,10 +50,11 @@ jobs:
         run: pnpm install
 
       - name: Build Application 🧱
-        run: yarn build
+        run: pnpm build
 
   lint:
     name: 'Lint 🐱'
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -68,14 +69,39 @@ jobs:
         with:
           version: 6.0.2
 
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v3.1.1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies 👨🏻‍💻
+        run: pnpm install
+
       - name: Format 📐
         run: pnpm format
 
       - name: Lint 🐱
-        run: yarn lint:js
+        run: pnpm lint:js
 
   test:
     name: 'Test 🧪'
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -86,14 +112,38 @@ jobs:
           - ubuntu-latest
 
     steps:
-     - uses: pnpm/action-setup@v2.2.2
-       with:
+      - uses: pnpm/action-setup@v2.2.2
+        with:
           version: 6.0.2
 
-     - name: Run tests 🧪
-       run: npm test
+      - name: Checkout 🛎
+        uses: actions/checkout@master
 
-     - name: Collect coverage
-       uses: codecov/codecov-action@v3
-       with:
-         token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v3.1.1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies 👨🏻‍💻
+        run: pnpm install
+
+      - name: Run tests 🧪
+        run: npm test
+
+      - name: Collect coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
