@@ -1,6 +1,4 @@
 <script lang="ts">
-  import clsx from 'clsx'
-
   import { Colors } from '~/common'
 
   export let color: Colors = Colors.PURPLE
@@ -14,12 +12,11 @@
 </script>
 
 <button
-  class={clsx(
-    'border-2 transition-all duration-300 hover:text-white transform active:rotate-12 active:shadow-xl',
-    colorClasses[color],
-    !noPadding && 'px-4 py-2',
-    isFullRounded ? 'rounded-full' : 'rounded-xl'
-  )}
+  class={`border-2 transition-all duration-300 hover:text-white transform active:rotate-12 active:shadow-xl px-4 py-2 ${colorClasses[color]}`}
+  class:px-4={!noPadding}
+  class:py-2={!noPadding}
+  class:rounded-full={isFullRounded}
+  class:rounded-xl={!isFullRounded}
   on:click
 >
   <slot />

@@ -15,7 +15,6 @@ specifiers:
   '@vitebook/theme-default': ^0.100.5
   '@vitest/coverage-c8': ^0.23.1
   '@vitest/ui': ^0.23.1
-  clsx: ^1.2.1
   eslint: ^8.23.0
   eslint-import-resolver-alias: ^1.1.2
   eslint-import-resolver-typescript: ^3.5.0
@@ -46,7 +45,6 @@ specifiers:
   windicss: ^3.5.6
 
 dependencies:
-  clsx: 1.2.1
   svelte-icons: 2.1.0
 
 devDependencies:
@@ -1609,11 +1607,6 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
     dev: true
-
-  /clsx/1.2.1:
-    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
-    engines: {node: '>=6'}
-    dev: false
 
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}

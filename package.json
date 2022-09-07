@@ -65,7 +65,6 @@
     "windicss": "^3.5.6"
   },
   "dependencies": {
-    "clsx": "^1.2.1",
     "svelte-icons": "^2.1.0"
   }
 }

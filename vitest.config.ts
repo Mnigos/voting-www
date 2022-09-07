@@ -17,8 +17,5 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'html'],
     },
-    deps: {
-      inline: ['clsx'],
-    },
   },
 })
