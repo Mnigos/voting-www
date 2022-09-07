@@ -34,6 +34,7 @@ specifiers:
   prettier-plugin-svelte: ^2.7.0
   svelte: ^3.49.0
   svelte-check: ^2.8.1
+  svelte-icons: ^2.1.0
   svelte-preprocess: ^4.10.7
   svelte-windicss-preprocess: ^4.2.8
   tslib: ^2.4.0
@@ -42,6 +43,9 @@ specifiers:
   vite-plugin-windicss: ^1.8.7
   vitest: ^0.23.1
   windicss: ^3.5.6
+
+dependencies:
+  svelte-icons: 2.1.0
 
 devDependencies:
   '@commitlint/cli': 17.1.2
@@ -4613,6 +4617,10 @@ packages:
     dependencies:
       svelte: 3.50.0
     dev: true
+
+  /svelte-icons/2.1.0:
+    resolution: {integrity: sha512-rHPQjweEc9fGSnvM0/4gA3pDHwyZyYsC5KhttCZRhSMJfLttJST5Uq0B16Czhw+HQ+HbSOk8kLigMlPs7gZtfg==}
+    dev: false
 
   /svelte-preprocess/4.10.7_25vz5gl6ox2pgh3uo5abz3kk6y:
     resolution: {integrity: sha512-sNPBnqYD6FnmdBrUmBCaqS00RyCsCpj2BG58A1JBswNF7b0OKviwxqVrOL/CKyJrLSClrSeqQv5BXNg2RUbPOw==}

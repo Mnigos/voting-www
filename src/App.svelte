@@ -1,6 +1,8 @@
 <script lang="ts">
+  import Alert from './lib/Alert.svelte'
   import ConnectWalletButton from './lib/ConnectWalletButton.svelte'
   import Footer from './lib/Footer.svelte'
+  import { showNoEthereumAlert } from './store'
 </script>
 
 <main
@@ -19,6 +21,13 @@
   <div class="self-end">
     <Footer />
   </div>
+
+  <Alert
+    isOpen={$showNoEthereumAlert}
+    class="absolute bottom-12 left-1/3 right-1/3 mx-auto"
+    onClick={() => showNoEthereumAlert.set(false)}
+    message="Oops... It seems like you don't have metamask extension installed ;//"
+  />
 </main>
 
 <style windi:preflights:global windi:safelist:global></style>
