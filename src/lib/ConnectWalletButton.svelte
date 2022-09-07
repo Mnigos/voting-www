@@ -4,10 +4,10 @@
   import Button from './Button.svelte'
 
   import { addressFormatter } from '~/utils'
-  import { account } from '~/store'
+  import { account, showNoEthereumAlert } from '~/store'
 
   async function connect() {
-    if (!window.ethereum) return
+    if (!window.ethereum) return showNoEthereumAlert.set(true)
 
     const provider = new providers.Web3Provider(window.ethereum)
 
