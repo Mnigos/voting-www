@@ -1,12 +1,13 @@
 <script lang="ts">
   import Alert from './lib/Alert.svelte'
+  import ProposalsCard from './lib/ProposalsCard.svelte'
   import ConnectWalletButton from './lib/ConnectWalletButton.svelte'
   import Footer from './lib/Footer.svelte'
   import { showNoEthereumAlert } from './store'
 </script>
 
 <main
-  class="bg-dark-800 min-h-screen text-white grid justify-items-center grid-rows-2"
+  class="bg-dark-800 min-h-screen text-white grid justify-items-center grid-rows-3"
 >
   <div class="flex flex-col items-center gap-8">
     <header class="text-center p-4">
@@ -17,6 +18,8 @@
 
     <ConnectWalletButton />
   </div>
+
+  <ProposalsCard />
 
   <div class="self-end">
     <Footer />
