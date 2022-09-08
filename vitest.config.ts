@@ -17,5 +17,8 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'html'],
     },
+    deps: {
+      inline: ['@ethersproject/signing-key', '@ethersproject/basex'],
+    },
   },
 })
