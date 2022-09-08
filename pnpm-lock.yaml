@@ -26,6 +26,7 @@ specifiers:
   eslint-plugin-svelte: ^2.8.0
   eslint-plugin-svelte3: ^4.0.0
   eslint-plugin-unicorn: ^43.0.2
+  eth-testing: ^1.5.0
   ethers: ^5.7.0
   husky: ^8.0.1
   jsdom: ^20.0.0
@@ -73,6 +74,7 @@ devDependencies:
   eslint-plugin-svelte: 2.8.0_sc4laremvjv7grvyfrqmp3xv5q
   eslint-plugin-svelte3: 4.0.0_sc4laremvjv7grvyfrqmp3xv5q
   eslint-plugin-unicorn: 43.0.2_eslint@8.23.0
+  eth-testing: 1.5.0
   ethers: 5.7.0
   husky: 8.0.1
   jsdom: 20.0.0
@@ -2577,6 +2579,15 @@ packages:
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /eth-testing/1.5.0:
+    resolution: {integrity: sha512-q9SpEloxSxeBfmjJqEpU0MQudyPJWkOZmcPjKOZJ3p8QQYYj1NjnK+C37twLwqc4pOci0kn4YY4M5QHD6fTEZw==}
+    dependencies:
+      ethers: 5.7.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
     dev: true
 
   /ethers/5.7.0:
