@@ -1,23 +1,36 @@
 <script lang="ts">
-  import { providers } from 'ethers'
+  import { onDestroy } from 'svelte'
 
   import Button from './Button.svelte'
 
   import { addressFormatter } from '~/utils'
-  import { account, showNoEthereumAlert } from '~/store'
+  import {
+    account,
+    provider,
+    setAccount,
+    setProvider,
+    showNoEthereumAlert,
+  } from '~/store'
 
   async function connect() {
     if (!window.ethereum) return showNoEthereumAlert.set(true)
 
-    const provider = new providers.Web3Provider(window.ethereum)
+    setProvider(window.ethereum)
 
-    await provider.send('eth_requestAccounts')
-
-    const singer = provider.getSigner()
-    const connectedAccount = await singer.getAddress()
-
-    account.set(connectedAccount)
+    await setAccount()
   }
+
+  const unSubscribe = provider.subscribe(currentProvider => {
+    if (!currentProvider) return
+
+    currentProvider.on('accountsChanged', async accounts => {
+      const [newAccount] = accounts
+
+      setAccount(newAccount)
+    })
+  })
+
+  onDestroy(unSubscribe)
 </script>
 
 <Button on:click={connect}>
