@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-import { describe, expect, test, vi } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { generateTestingUtils } from 'eth-testing'
 
 import {
@@ -8,6 +8,7 @@ import {
   provider,
   setAccount,
   showNoEthereumAlert,
+  tryAutoConnect,
 } from './store'
 
 describe('store', () => {
@@ -17,6 +18,11 @@ describe('store', () => {
     ...ethersTestUtils.getProvider(),
     request: vi.fn().mockImplementation(() => [testAccount]),
   }
+
+  beforeEach(() => {
+    account.set('')
+    provider.set(undefined)
+  })
 
   test('setProvider', async () => {
     setProvider(providerMock)
@@ -39,5 +45,13 @@ describe('store', () => {
     showNoEthereumAlert.set(true)
 
     expect(get(showNoEthereumAlert)).toEqual(true)
+  })
+
+  test('tryAutoConnect', () => {
+    account.set(testAccount)
+
+    tryAutoConnect(providerMock)
+
+    expect(get(provider)).toEqual(providerMock)
   })
 })
