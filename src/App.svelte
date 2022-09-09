@@ -7,7 +7,7 @@
 </script>
 
 <main
-  class="bg-dark-800 min-h-screen text-white grid justify-items-center grid-rows-3"
+  class="bg-dark-800 min-h-screen text-white grid justify-items-center grid-rows-3 px-4"
 >
   <div class="flex flex-col items-center gap-8">
     <header class="text-center p-4">
@@ -19,7 +19,9 @@
     <ConnectWalletButton />
   </div>
 
-  <ProposalsCard />
+  <div class="w-full max-w-[450px] md:max-w-[900px]">
+    <ProposalsCard />
+  </div>
 
   <div class="self-end">
     <Footer />

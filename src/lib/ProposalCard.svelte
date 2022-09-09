@@ -13,11 +13,11 @@
 </script>
 
 <div
-  class="relative pb-16 transition-all duration-300"
+  class={`pb-16 transition-all duration-300 ${$$restProps.class} relative min-h-full`}
   class:pb-16={showVoteButton}
 >
   <button
-    class="flex flex-col bg-purple-800 p-2 rounded-xl z-50"
+    class="flex flex-col bg-purple-800 p-2 rounded-xl z-50 w-full items-center md:gap-2"
     on:click={() => (showVoteButton = !showVoteButton)}
   >
     <header class="text-xl">
@@ -32,10 +32,11 @@
   </button>
 
   <div
-    class="absolute transition-all duration-300 -top-10 opacity-100 opacity-0 transform translate-y-31 w-full flex justify-center z-10"
+    class="absolute delay-100 transition-all duration-300 top-0 opacity-100 opacity-0 transform w-full flex justify-center"
     class:opacity-100={showVoteButton}
     class:opacity-0={!showVoteButton}
-    class:translate-y-31={showVoteButton}
+    class:-z-10={!showVoteButton}
+    class:translate-y-22={showVoteButton}
   >
     <Button
       on:click={() => (isVoted = true)}
