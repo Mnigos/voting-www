@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
+  import { get } from 'svelte/store'
 
   import Button from './Button.svelte'
 
@@ -10,6 +11,7 @@
     setAccount,
     setProvider,
     showNoEthereumAlert,
+    tryAutoConnect,
   } from '~/store'
 
   async function connect() {
@@ -28,6 +30,12 @@
 
       setAccount(newAccount)
     })
+  })
+
+  onMount(() => {
+    if (get(account)) return
+
+    tryAutoConnect(window.ethereum)
   })
 
   onDestroy(unSubscribe)
