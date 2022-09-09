@@ -1,7 +1,7 @@
 import { get, writable } from 'svelte/store'
 import { providers } from 'ethers'
 
-export const account = writable<string>()
+export const account = writable<string>(localStorage.getItem('account') || '')
 export const provider = writable<providers.ExternalProvider>()
 export const showNoEthereumAlert = writable<boolean>(false)
 
@@ -22,3 +22,15 @@ export async function setAccount() {
 
   account.set(currentAccount)
 }
+
+export function tryAutoConnect(
+  newProvider: providers.ExternalProvider | providers.JsonRpcFetchFunc
+) {
+  if (!account) return
+
+  setProvider(newProvider)
+}
+
+account.subscribe(newAccount => {
+  localStorage.setItem('account', newAccount)
+})
