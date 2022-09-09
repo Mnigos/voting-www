@@ -29,7 +29,7 @@
 
   <Alert
     isOpen={$showNoEthereumAlert}
-    class="absolute bottom-12 left-1/3 right-1/3 mx-auto"
+    class="absolute bottom-12 md:left-1/3 md:right-1/3 mx-2 md:mx-auto"
     onClick={() => showNoEthereumAlert.set(false)}
     message="Oops... It seems like you don't have metamask extension installed ;//"
   />
