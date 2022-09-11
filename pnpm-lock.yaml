@@ -15,6 +15,7 @@ specifiers:
   '@vitebook/theme-default': ^0.100.5
   '@vitest/coverage-c8': ^0.23.1
   '@vitest/ui': ^0.23.1
+  dotenv: ^16.0.2
   eslint: ^8.23.0
   eslint-import-resolver-alias: ^1.1.2
   eslint-import-resolver-typescript: ^3.5.0
@@ -46,6 +47,7 @@ specifiers:
   windicss: ^3.5.6
 
 dependencies:
+  dotenv: 16.0.2
   svelte-icons: 2.1.0
 
 devDependencies:
@@ -1908,6 +1910,11 @@ packages:
     dependencies:
       is-obj: 2.0.0
     dev: true
+
+  /dotenv/16.0.2:
+    resolution: {integrity: sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==}
+    engines: {node: '>=12'}
+    dev: false
 
   /eastasianwidth/0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}

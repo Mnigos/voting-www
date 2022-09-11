@@ -1,4 +1,5 @@
 import sveltePreprocess from 'svelte-preprocess'
+import 'dotenv/config'
 
 export default {
   // Consult https://github.com/sveltejs/svelte-preprocess
