@@ -85,6 +85,7 @@ export async function getProposals() {
 }
 
 export async function getStats() {
+  if (!get(account)) return
   if (!get(contract)) return setTimeout(getStats, 1000)
 
   const { vote, voted, weight } = await get(contract).voters(get(account))
@@ -104,7 +105,7 @@ export async function getStats() {
 }
 
 export async function vote(proposal: number) {
-  console.log('e')
+  if (!get(account)) return
 
   const response = await get(contract).vote(proposal)
 
