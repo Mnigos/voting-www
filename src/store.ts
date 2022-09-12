@@ -9,6 +9,9 @@ export interface Proposal {
 }
 
 export const account = writable<string>(localStorage.getItem('account') || '')
+export const avaibleVotes = writable<number>(0)
+export const isVoted = writable<boolean>(false)
+export const yourVote = writable<string>()
 export const provider = writable<providers.ExternalProvider>()
 export const contract = writable<Contract>()
 export const proposals = writable<Proposal[]>([])
@@ -77,6 +80,35 @@ export async function getProposals() {
   }
 }
 
-account.subscribe(newAccount => {
+export async function getAvaibleVotes() {
+  const fetchedAvaibleVotes = await get(contract)
+    ?.connect(get(account))
+    ?.getAvaibleVotes()
+
+  if (!fetchedAvaibleVotes) return getAvaibleVotes()
+
+  avaibleVotes.set(fetchedAvaibleVotes.toNumber())
+}
+
+export async function getIsVoted() {
+  const { vote, voted } = await get(contract).voters(get(account))
+
+  isVoted.set(voted)
+
+  if (!voted) return
+
+  const { name } = await get(contract).proposals(vote.toNumber())
+
+  voted.set(name)
+}
+
+export async function addVoter() {
+  await get(contract).connect(get(account)).addVoter()
+}
+
+account.subscribe(async newAccount => {
   localStorage.setItem('account', newAccount)
+
+  await getAvaibleVotes()
+  await getIsVoted()
 })
