@@ -4,10 +4,11 @@
   import ConnectWalletButton from './lib/ConnectWalletButton.svelte'
   import Footer from './lib/Footer.svelte'
   import { showNoEthereumAlert } from './store'
+  import StatsCard from './lib/StatsCard.svelte'
 </script>
 
 <main
-  class="bg-dark-800 min-h-screen text-white grid justify-items-center grid-rows-3 px-4"
+  class="bg-dark-800 min-h-screen text-white grid justify-items-center grid-rows-3 px-4 gap-8"
 >
   <div class="flex flex-col items-center gap-8">
     <header class="text-center p-4">
@@ -17,6 +18,8 @@
     </header>
 
     <ConnectWalletButton />
+
+    <StatsCard />
   </div>
 
   <div class="w-full max-w-[450px] md:max-w-[900px]">
