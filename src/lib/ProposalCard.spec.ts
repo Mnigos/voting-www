@@ -41,24 +41,4 @@ describe('ProposalCard', () => {
 
     expect(voteButtonContainer.classList.contains(opacityClass)).toBeFalsy()
   })
-
-  test('should vote on click vote button', async () => {
-    const { container } = render(ProposalCard, { name, votes })
-
-    const proposalButton = container.querySelector<HTMLButtonElement>(
-      'button.bg-purple-800'
-    )
-    const voteButton =
-      container.querySelector<HTMLButtonElement>('button.transform')
-
-    await proposalButton.click()
-
-    expect(voteButton.classList.contains('bg-purple-800')).toBeTruthy()
-    expect(voteButton.innerHTML).toEqual('Vote')
-
-    await voteButton.click()
-
-    expect(voteButton.classList.contains('bg-green-800')).toBeTruthy()
-    expect(voteButton.innerHTML.includes('Voted')).toBeTruthy()
-  })
 })

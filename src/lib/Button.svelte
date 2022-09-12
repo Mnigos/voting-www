@@ -5,6 +5,7 @@
   export let isFullRounded = false
   export let noPadding = false
   export let isFilled = false
+  export let isDisabled = false
 
   const colorClasses = {
     [Colors.PURPLE]: `border-purple-800 ${
@@ -25,8 +26,11 @@
   class={`border-2 transition-all duration-300 hover:text-white text-white transform active:rotate-12 active:shadow-xl px-4 py-2 ${colorClasses[color]} ${$$restProps.class}`}
   class:px-4={!noPadding}
   class:py-2={!noPadding}
+  class:transform={!isDisabled}
+  class:cursor-not-allowed={isDisabled}
   class:rounded-full={isFullRounded}
   class:rounded-xl={!isFullRounded}
+  disabled={isDisabled}
   on:click
 >
   <slot />
