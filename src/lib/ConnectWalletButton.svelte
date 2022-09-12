@@ -7,21 +7,19 @@
   import { addressFormatter } from '~/utils'
   import {
     account,
+    setAccount,
+    connect,
     disconnect,
     provider,
-    setAccount,
-    setProvider,
     showNoEthereumAlert,
     tryAutoConnect,
   } from '~/store'
 
-  async function connect() {
+  async function connectWallet() {
     if (!window.ethereum) return showNoEthereumAlert.set(true)
     if ($account) return disconnect()
 
-    setProvider(window.ethereum)
-
-    await setAccount()
+    await connect(window.ethereum)
   }
 
   const unSubscribe = provider.subscribe(currentProvider => {
@@ -43,7 +41,7 @@
   onDestroy(unSubscribe)
 </script>
 
-<Button on:click={connect} class="group hover:scale-x-105">
+<Button on:click={connectWallet} class="group hover:scale-x-105">
   {#if $account}
     <span class="group-hover:hidden">
       {addressFormatter($account)}
