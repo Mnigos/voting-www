@@ -11,6 +11,7 @@ export function setContract() {
   const goerliProvider = new providers.JsonRpcProvider(
     `https://goerli.infura.io/v3/${import.meta.env.VITE_API_KEY}`
   )
+
   contract.set(
     new Contract(
       import.meta.env.VITE_CONTRACT_ADDRESS,
