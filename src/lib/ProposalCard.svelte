@@ -4,7 +4,7 @@
   import Button from './Button.svelte'
 
   import { Colors } from '~/common'
-  import { proposals, vote, isVoted, yourVote } from '~/store'
+  import { proposals, vote, isVoted, yourVote, account } from '~/store'
 
   export let name: string
   export let votes: number
@@ -45,16 +45,16 @@
             $proposals.find(proposal => proposal.name === name)
           )
         )}
-      color={$isVoted
+      color={$isVoted || !$account
         ? // eslint-disable-next-line unicorn/no-nested-ternary
           name === $yourVote
           ? Colors.GREEN
           : Colors.DARK
         : Colors.PURPLE}
-      isDisabled={$isVoted}
+      isDisabled={$isVoted || !$account}
       isFilled
     >
-      {#if $isVoted}
+      {#if $isVoted || !$account}
         <div class="flex gap-2">
           {#if name === $yourVote}
             <div class="w-[24px] h-[24px]">
@@ -62,6 +62,8 @@
             </div>
 
             <p>Voted</p>
+          {:else if !$account}
+            <p>Sign in for voting</p>
           {:else}
             <p>Already voted</p>
           {/if}
