@@ -25,7 +25,9 @@
 
     <ConnectWalletButton />
 
-    <StatsCard />
+    {#if $account}
+      <StatsCard />
+    {/if}
   </div>
 
   <div class="w-full max-w-[450px] md:max-w-[900px]">
