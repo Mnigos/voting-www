@@ -4,31 +4,35 @@
   import Button from './Button.svelte'
 
   import {
-    getAvaibleVotes,
     avaibleVotes,
-    getIsVoted,
     account,
     isVoted,
     yourVote,
     addVoter,
+    getStats,
   } from '~/store'
 
   onMount(async () => {
-    await getAvaibleVotes()
-    await getIsVoted()
+    await getStats()
   })
 </script>
 
 {#if $account}
   <div class="flex flex-col gap-4">
-    <div class="bg-dark-600 p-2 rounded-lg shadow-xl flex gap-2">
+    <div
+      class="bg-dark-600 p-2 rounded-lg shadow-xl flex gap-2 justify-between"
+    >
       <p class="text-gray-400">Avaible votes:</p>
       <div class="rounded-lg text-center bg-gray-600 px-2">{$avaibleVotes}</div>
     </div>
 
-    <div class="bg-dark-600 p-2 rounded-lg shadow-xl flex gap-2">
+    <div
+      class="bg-dark-600 p-2 rounded-lg shadow-xl flex gap-2 justify-between"
+    >
       {#if $isVoted}
-        <p class="text-gray-400">You have voted for: {$yourVote}</p>
+        <p class="text-gray-400">You have voted for:</p>
+
+        <div class="rounded-lg text-center bg-gray-600 px-2">{$yourVote}</div>
       {:else}
         <span class="flex flex-col gap-2">
           <p class="text-gray-400">You haven't voted yet</p>
