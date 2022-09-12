@@ -74,6 +74,7 @@ export async function getProposals() {
 
       index++
     } catch {
+      console.log('err')
       error = true
       index = 0
     }
@@ -105,10 +106,3 @@ export async function getIsVoted() {
 export async function addVoter() {
   await get(contract).connect(get(account)).addVoter()
 }
-
-account.subscribe(async newAccount => {
-  localStorage.setItem('account', newAccount)
-
-  await getAvaibleVotes()
-  await getIsVoted()
-})
