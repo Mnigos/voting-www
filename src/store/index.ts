@@ -9,6 +9,7 @@ import {
   setAccount,
   yourVote,
 } from './account'
+import { setContract } from './contract'
 
 export const provider = writable<providers.ExternalProvider>()
 export const singer = writable<providers.JsonRpcSigner>()
@@ -29,6 +30,7 @@ export async function connect(
   setProvider(newProvider)
   await setAccount()
   await getStats()
+  setContract()
 }
 
 export async function disconnect() {
@@ -39,6 +41,8 @@ export async function disconnect() {
   avaibleVotes.set(0)
 
   localStorage.removeItem('account')
+
+  setContract()
 }
 
 export * from './contract'

@@ -16,6 +16,7 @@ export async function getProposals() {
 
   while (!error) {
     try {
+      console.log(await get(contract).proposals(index))
       const { name, voteCount } = await get(contract).proposals(index)
 
       newProposals.push({
@@ -26,6 +27,7 @@ export async function getProposals() {
 
       index++
     } catch {
+      console.log('e')
       error = true
       index = 0
     }
