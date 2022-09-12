@@ -7,7 +7,7 @@
   import { setContract, getProposals, proposals } from '~/store'
 
   onMount(async () => {
-    setContract()
+    setContract(window.ethereum)
 
     await getProposals()
   })

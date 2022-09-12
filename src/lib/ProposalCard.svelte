@@ -4,12 +4,12 @@
   import Button from './Button.svelte'
 
   import { Colors } from '~/common'
+  import { proposals, vote, isVoted, yourVote } from '~/store'
 
   export let name: string
   export let votes: number
 
   let showVoteButton = false
-  let isVoted = false
 </script>
 
 <div
@@ -39,16 +39,32 @@
     class:translate-y-22={showVoteButton}
   >
     <Button
-      on:click={() => (isVoted = true)}
-      color={isVoted ? Colors.GREEN : Colors.PURPLE}
+      on:click={() =>
+        vote(
+          $proposals.indexOf(
+            $proposals.find(proposal => proposal.name === name)
+          )
+        )}
+      color={$isVoted
+        ? // eslint-disable-next-line unicorn/no-nested-ternary
+          name === $yourVote
+          ? Colors.GREEN
+          : Colors.DARK
+        : Colors.PURPLE}
+      isDisabled={$isVoted}
       isFilled
     >
-      {#if isVoted}
+      {#if $isVoted}
         <div class="flex gap-2">
-          <div class="w-[24px] h-[24px]">
-            <IoMdCheckmark />
-          </div>
-          <p>Voted</p>
+          {#if name === $yourVote}
+            <div class="w-[24px] h-[24px]">
+              <IoMdCheckmark />
+            </div>
+
+            <p>Voted</p>
+          {:else}
+            <p>Already voted</p>
+          {/if}
         </div>
       {:else}
         Vote
