@@ -43,16 +43,20 @@ export function tryAutoConnect(
   setProvider(newProvider)
 }
 
-export function setContract() {
-  const goerliProvider = new providers.JsonRpcProvider(
-    `https://goerli.infura.io/v3/${import.meta.env.VITE_API_KEY}`
-  )
+export function setContract(
+  newProvider: providers.ExternalProvider | providers.JsonRpcFetchFunc
+) {
+  // const goerliProvider = new providers.JsonRpcProvider(
+  //   `https://goerli.infura.io/v3/${import.meta.env.VITE_API_KEY}`
+  // )
+
+  const singer = new providers.Web3Provider(newProvider).getSigner()
 
   contract.set(
     new Contract(
       import.meta.env.VITE_CONTRACT_ADDRESS,
       VotingContractAbi,
-      goerliProvider
+      singer
     )
   )
 }
@@ -74,35 +78,39 @@ export async function getProposals() {
 
       index++
     } catch {
-      console.log('err')
       error = true
       index = 0
     }
   }
 }
 
-export async function getAvaibleVotes() {
-  const fetchedAvaibleVotes = await get(contract)
-    ?.connect(get(account))
-    ?.getAvaibleVotes()
+export async function getStats() {
+  if (!get(contract)) return setTimeout(getStats, 1000)
 
-  if (!fetchedAvaibleVotes) return getAvaibleVotes()
-
-  avaibleVotes.set(fetchedAvaibleVotes.toNumber())
-}
-
-export async function getIsVoted() {
-  const { vote, voted } = await get(contract).voters(get(account))
+  const { vote, voted, weight } = await get(contract).voters(get(account))
 
   isVoted.set(voted)
 
-  if (!voted) return
+  if (voted) {
+    const { name: votedProposalName } = await get(contract).proposals(
+      vote.toNumber()
+    )
 
-  const { name } = await get(contract).proposals(vote.toNumber())
+    yourVote.set(votedProposalName)
+    avaibleVotes.set(0)
+  } else {
+    avaibleVotes.set(weight.toNumber())
+  }
+}
 
-  voted.set(name)
+export async function vote(proposal: number) {
+  console.log('e')
+
+  const response = await get(contract).vote(proposal)
+
+  console.log(response)
 }
 
 export async function addVoter() {
-  await get(contract).connect(get(account)).addVoter()
+  await get(contract).addVoter()
 }

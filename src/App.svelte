@@ -3,19 +3,13 @@
   import ProposalsCard from './lib/ProposalsCard.svelte'
   import ConnectWalletButton from './lib/ConnectWalletButton.svelte'
   import Footer from './lib/Footer.svelte'
-  import {
-    showNoEthereumAlert,
-    account,
-    getAvaibleVotes,
-    getIsVoted,
-  } from './store'
+  import { showNoEthereumAlert, account, getStats } from './store'
   import StatsCard from './lib/StatsCard.svelte'
 
   account.subscribe(async newAccount => {
     localStorage.setItem('account', newAccount)
 
-    await getAvaibleVotes()
-    await getIsVoted()
+    await getStats()
   })
 </script>
 
