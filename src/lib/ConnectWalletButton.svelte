@@ -35,7 +35,7 @@
   onMount(() => {
     if (get(account)) return
 
-    tryAutoConnect(window.ethereum)
+    if (window.ethereum) tryAutoConnect(window.ethereum)
   })
 
   onDestroy(unSubscribe)
