@@ -39,9 +39,7 @@ export async function getStats() {
 export async function vote(proposal: number) {
   if (!get(account)) return
 
-  const response = await get(contract).vote(proposal)
-
-  console.log(response)
+  await get(contract).vote(proposal)
 }
 
 export async function signInForVoting() {
