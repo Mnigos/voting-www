@@ -7,6 +7,7 @@
   import { addressFormatter } from '~/utils'
   import {
     account,
+    disconnect,
     provider,
     setAccount,
     setProvider,
@@ -16,6 +17,7 @@
 
   async function connect() {
     if (!window.ethereum) return showNoEthereumAlert.set(true)
+    if ($account) return disconnect()
 
     setProvider(window.ethereum)
 
@@ -41,9 +43,13 @@
   onDestroy(unSubscribe)
 </script>
 
-<Button on:click={connect}>
+<Button on:click={connect} class="group hover:scale-x-105">
   {#if $account}
-    {addressFormatter($account)}
+    <span class="group-hover:hidden">
+      {addressFormatter($account)}
+    </span>
+
+    <span class="hidden group-hover:block"> Disconnect wallet </span>
   {:else}
     Connect wallet
   {/if}

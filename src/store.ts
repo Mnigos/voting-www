@@ -111,6 +111,16 @@ export async function vote(proposal: number) {
   console.log(response)
 }
 
+export async function disconnect() {
+  account.set('')
+  provider.set(undefined)
+  isVoted.set(false)
+  yourVote.set(undefined)
+  avaibleVotes.set(0)
+
+  localStorage.removeItem('account')
+}
+
 export async function addVoter() {
   await get(contract).addVoter()
 }
