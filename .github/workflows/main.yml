@@ -142,6 +142,9 @@ jobs:
 
       - name: Run tests 🧪
         run: pnpm test:coverage
+        env:
+          VITE_CONTRACT_ADDRESS: ${{ secrets.VITE_CONTRACT_ADDRESS }}
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
       - name: Collect coverage
         uses: codecov/codecov-action@v3
