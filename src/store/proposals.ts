@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-import { contract } from '.'
+import { contract, setContract } from '.'
 
 export interface Proposal {
   name: string
@@ -30,4 +30,11 @@ export async function getProposals() {
       index = 0
     }
   }
+}
+
+export async function addProposal(name: string) {
+  setContract()
+  await get(contract).addProposal(name)
+
+  await getProposals()
 }
