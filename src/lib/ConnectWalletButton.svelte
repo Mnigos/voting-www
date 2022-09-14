@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
-  import { get } from 'svelte/store'
 
   import Button from './Button.svelte'
 
@@ -33,8 +32,6 @@
   })
 
   onMount(() => {
-    if (get(account)) return
-
     if (window.ethereum) tryAutoConnect(window.ethereum)
   })
 
