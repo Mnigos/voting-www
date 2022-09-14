@@ -5,6 +5,7 @@
   import Footer from './lib/Footer.svelte'
   import { showNoEthereumAlert, account, getStats } from './store'
   import StatsCard from './lib/StatsCard.svelte'
+  import ProposalForm from './lib/ProposalForm.svelte'
 
   account.subscribe(async newAccount => {
     localStorage.setItem('account', newAccount)
@@ -26,7 +27,10 @@
     <ConnectWalletButton />
 
     {#if $account}
-      <StatsCard />
+      <div class="flex items-center gap-16">
+        <StatsCard />
+        <ProposalForm />
+      </div>
     {/if}
   </div>
 
